@@ -1,0 +1,47 @@
+:root {
+    color-scheme: light dark;
+    --space-md: 2px;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sansserif;
+    background: #f8fafc;
+    color: #0b1020;
+}
+
+.page {
+    min-height: 100vh;
+    /* фолбэк для старых браузеров (может не учитывать
+   панели на мобилках) */
+    min-height: 100svh;
+    /* стабильный минимум: высота экрана с панелями
+   (всегда влезет) */
+    min-height: 100dvh;
+    /* на новых браузерах — актуальная видимая высота,
+   обновляется при скролле */
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.nav {
+    position: sticky;
+    top: 0;
+    padding-block-start: calc(.75rem + env(safe-area-inset-top));
+    padding-block-end: .75rem;
+    padding-inline-start: calc(var(--space-md, 1rem) + env(safe-area-insetleft));
+    padding-inline-end: calc(var(--space-md, 1rem) + env(safe-area-insetright));
+    background: #2563eb;
+    color: #fff;
+    z-index: 100;
+    isolation: isolate;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+}

@@ -2,20 +2,107 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Семестровая работа</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Проекты - Соловьев Кирилл</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            color-scheme: light dark;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+        }
+
+        .skip-link {
+            position: absolute;
+            inset-inline-start: 1rem;
+            inset-block-start: -100%;
+            z-index: 10000;
+            padding: .5rem .75rem;
+            background: #111;
+            color: #fff;
+            border-radius: .5rem;
+            text-decoration: none;
+        }
+
+        .skip-link:focus,
+        .skip-link:focus-visible {
+            inset-block-start: 1rem;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            padding-block-start: calc(.75rem + env(safe-area-inset-top));
+            padding-block-end: .75rem;
+            padding-inline-start: calc(var(--space-md) + env(safe-area-inset-left));
+            padding-inline-end: calc(var(--space-md) + env(safe-area-inset-right));
+            z-index: 100;
+            isolation: isolate;
+        }
+
+        /* Контейнерные запросы для проектов */
+        .projects-area {
+            container-type: inline-size;
+            container-name: projects;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+        }
+
+        @container projects (min-width: 640px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @container projects (min-width: 960px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: .75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform .2s ease, box-shadow .2s ease;
+            min-width: 0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .project-card-title,
+        .project-card-description {
+            overflow-wrap: anywhere;
+        }
+
+        .footer {
+            padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .project-card {
+                transition: none;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-light">
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+
 <div class="container-fluid p-0">
     <!-- Header -->
     <header class="bg-primary text-white py-4">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col">
-                    <img src="../images/logo.png" class="img-fluid" alt="logo" width="50">
                     <h1 class="h3 mb-1">Соловьев Кирилл</h1>
                     <p class="mb-0 opacity-75">Студент разработчик</p>
                 </div>
@@ -26,31 +113,38 @@
         </div>
     </header>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Основная навигация">
         <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Переключить навигацию">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="../index.html">
-                            <i class="bi bi-house me-1"></i>Главная
+                            <i class="bi bi-house me-1" aria-hidden="true"></i>Главная
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="projects.html">
-                            <i class="bi bi-code-slash me-1"></i>Проекты
+                        <a class="nav-link active" href="projects.html" aria-current="page">
+                            <i class="bi bi-code-slash me-1" aria-hidden="true"></i>Проекты
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="diary.html">
-                            <i class="bi bi-newspaper me-1"></i>дневник
+                            <i class="bi bi-newspaper me-1" aria-hidden="true"></i>Дневник
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contacts.html">
-                            <i class="bi bi-telephone me-1"></i>Контакты
+                            <i class="bi bi-telephone me-1" aria-hidden="true"></i>Контакты
                         </a>
                     </li>
                 </ul>
@@ -59,77 +153,130 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="container my-4">
-
+    <main id="main-content" class="container my-4">
         <!-- Projects Section -->
-        <section class="mb-5">
+        <section class="mb-5" aria-labelledby="projects-title">
             <div class="card shadow-sm">
                 <div class="card-header bg-light">
-                    <h3 class="card-title h5 mb-0">
-                        <i class="bi bi-folder-fill text-primary"></i>
-                        Мои проекты
-                    </h3>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-sm btn-outline-secondary m-2" data-bs-toggle="modal">ВСЕ</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary m-2" data-bs-toggle="modal">HTML</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary m-2" data-bs-toggle="modal">Python</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary m-2" data-bs-toggle="modal">C++</button>
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                        <h2 id="projects-title" class="card-title h5 mb-0">
+                            <i class="bi bi-folder-fill text-primary" aria-hidden="true"></i>
+                            Мои проекты
+                        </h2>
+                        <div class="filter-buttons mt-2 mt-md-0">
+                            <button type="button" class="btn btn-sm btn-outline-primary active" data-filter="all">Все</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-filter="html">HTML/CSS</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-filter="python">Python</button>
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-filter="cpp">C++</button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row row-cols-2">
-                        <div class="col m-2 w-25 min-vw-50">
-                            <div class="card p-3">
-                                <img src="../images/project1.png" class="card-img-top" alt="Личный сайт" style="height: 150px; object-fit: cover;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Личный сайт</h5>
-                                    <p class="card-text small text-muted">
-                                        Сайт-портфолио на HTML, CSS и Bootstrap с адаптивным дизайном.
+                    <div class="projects-area">
+                        <div class="projects-grid">
+                            <article class="project-card card h-100" data-category="html">
+                                <picture>
+                                    <img src="../images/project1.png"
+                                         class="card-img-top"
+                                         alt="Скриншот личного сайта-портфолио"
+                                         width="300"
+                                         height="150"
+                                         loading="lazy"
+                                         style="height: 150px; object-fit: cover;">
+                                </picture>
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="project-card-title card-title h5">Личный сайт</h3>
+                                    <p class="project-card-description card-text small text-muted flex-grow-1">
+                                        Сайт-портфолио на HTML, CSS и Bootstrap с адаптивным дизайном и доступностью.
                                     </p>
                                     <div class="mb-2">
                                         <span class="badge bg-primary">HTML</span>
                                         <span class="badge bg-primary">CSS</span>
                                         <span class="badge bg-primary">Bootstrap</span>
                                     </div>
-                                    <a href="https://github.com/kirill944/FB_practice" class="btn btn-link">
-                                        Ссылка
+                                    <a href="https://github.com/kirill944/FB_practice" class="btn btn-outline-primary mt-auto">
+                                        Смотреть проект
                                     </a>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col m-2 w-25 min-vw-50">
-                            <div class="card h-100 w-100 p-3">
-                                <img src="../images/project1.png" class="card-img-top" alt="Личный сайт" style="height: 150px; object-fit: cover;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Личный сайт</h5>
-                                    <p class="card-text small text-muted">
-                                        Сайт-портфолио на HTML, CSS и Bootstrap с адаптивным дизайном.
+                            </article>
+
+                            <article class="project-card card h-100" data-category="python">
+                                <picture>
+                                    <img src="../images/project1.png"
+                                         class="card-img-top"
+                                         alt="Скриншот Python проекта анализа данных"
+                                         width="300"
+                                         height="150"
+                                         loading="lazy"
+                                         style="height: 150px; object-fit: cover;">
+                                </picture>
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="project-card-title card-title h5">Анализ данных</h3>
+                                    <p class="project-card-description card-text small text-muted flex-grow-1">
+                                        Проект анализа данных с использованием Python, Pandas и Matplotlib для визуализации результатов.
                                     </p>
                                     <div class="mb-2">
                                         <span class="badge bg-danger">Python</span>
+                                        <span class="badge bg-secondary">Pandas</span>
+                                        <span class="badge bg-info">Matplotlib</span>
                                     </div>
-                                    <a href="https://github.com/kirill944/FB_practice" class="btn btn-link">
-                                        Ссылка
+                                    <a href="https://github.com/kirill944/FB_practice" class="btn btn-outline-primary mt-auto">
+                                        Смотреть проект
                                     </a>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col m-2 w-25 min-vw-50">
-                            <div class="card h-100 w-100 p-3">
-                                <img src="../images/project1.png" class="card-img-top" alt="Личный сайт" style="height: 150px; object-fit: cover;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Личный сайт</h5>
-                                    <p class="card-text small text-muted">
-                                        Сайт-портфолио на HTML, CSS и Bootstrap с адаптивным дизайном.
+                            </article>
+
+                            <article class="project-card card h-100" data-category="cpp">
+                                <picture>
+                                    <img src="../images/project1.png"
+                                         class="card-img-top"
+                                         alt="Скриншот C++ системного приложения"
+                                         width="300"
+                                         height="150"
+                                         loading="lazy"
+                                         style="height: 150px; object-fit: cover;">
+                                </picture>
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="project-card-title card-title h5">Системное приложение</h3>
+                                    <p class="project-card-description card-text small text-muted flex-grow-1">
+                                        Приложение на C++ для работы с системными процессами и оптимизации производительности.
                                     </p>
                                     <div class="mb-2">
-                                        <span class="badge bg-primary">C++</span>
+                                        <span class="badge bg-info">C++</span>
+                                        <span class="badge bg-dark">STL</span>
+                                        <span class="badge bg-warning">Multithreading</span>
                                     </div>
-                                    <a href="https://github.com/kirill944/FB_practice" class="btn btn-link">
-                                        Ссылка
+                                    <a href="https://github.com/kirill944/FB_practice" class="btn btn-outline-primary mt-auto">
+                                        Смотреть проект
                                     </a>
                                 </div>
-                            </div>
+                            </article>
+
+                            <article class="project-card card h-100" data-category="html">
+                                <picture>
+                                    <img src="../images/project1.png"
+                                         class="card-img-top"
+                                         alt="Скриншот адаптивного лендинга"
+                                         width="300"
+                                         height="150"
+                                         loading="lazy"
+                                         style="height: 150px; object-fit: cover;">
+                                </picture>
+                                <div class="card-body d-flex flex-column">
+                                    <h3 class="project-card-title card-title h5">Адаптивный лендинг</h3>
+                                    <p class="project-card-description card-text small text-muted flex-grow-1">
+                                        Современный адаптивный лендинг с использованием CSS Grid, Flexbox и JavaScript.
+                                    </p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-primary">HTML</span>
+                                        <span class="badge bg-primary">CSS</span>
+                                        <span class="badge bg-success">JavaScript</span>
+                                    </div>
+                                    <a href="https://github.com/kirill944/FB_practice" class="btn btn-outline-primary mt-auto">
+                                        Смотреть проект
+                                    </a>
+                                </div>
+                            </article>
                         </div>
                     </div>
                 </div>
@@ -138,14 +285,14 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
+    <footer class="bg-dark text-white py-4 mt-5 footer">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <p class="mb-0">&copy; 2024 Портфолио студента. Все права защищены.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="pages/contacts.html" class="text-white text-decoration-none me-3">Контакты</a>
+                    <a href="contacts.html" class="text-white text-decoration-none me-3">Контакты</a>
                     <a href="#" class="text-white text-decoration-none">Политика конфиденциальности</a>
                 </div>
             </div>
@@ -154,5 +301,31 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Фильтрация проектов
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('[data-filter]');
+        const projects = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+
+                // Обновляем активную кнопку
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                // Фильтруем проекты
+                projects.forEach(project => {
+                    if (filter === 'all' || project.getAttribute('data-category') === filter) {
+                        project.style.display = 'block';
+                    } else {
+                        project.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>
